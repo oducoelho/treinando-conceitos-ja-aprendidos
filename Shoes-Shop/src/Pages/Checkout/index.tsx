@@ -1,6 +1,11 @@
-import { CheckoutContainer, Finish, PartOfTheCheckout, Product } from "../../styles/pages/Checkout"
+import {
+  CheckoutContainer,
+  Finish,
+  PartOfTheCheckout,
+  Product,
+} from '../../styles/pages/Checkout'
 import PhotoShoes from '../../assets/tenis.webp'
-import { MinusCircle, PlusCircle, Trash } from "phosphor-react"
+import { MinusCircle, PlusCircle, Trash } from 'phosphor-react'
 export const Checkout = () => {
   return (
     <CheckoutContainer>
@@ -13,7 +18,10 @@ export const Checkout = () => {
           </div>
         </div>
         <PartOfTheCheckout>
-          <div> {/*<MinusCircle />*/} -  2  +{/*<PlusCircle  />*/} </div>
+          <div>
+            {' '}
+            {/* <MinusCircle /> */} - 2 +{/* <PlusCircle  /> */}{' '}
+          </div>
           <span>R$ 250,5</span>
           <Trash />
         </PartOfTheCheckout>
@@ -21,7 +29,9 @@ export const Checkout = () => {
 
       <Finish>
         <button>FINALIZAR PEDIDO</button>
-        <span><strong>TOTAL</strong>R$ 500,00</span>
+        <span>
+          <strong>TOTAL</strong>R$ 500,00
+        </span>
       </Finish>
     </CheckoutContainer>
   )

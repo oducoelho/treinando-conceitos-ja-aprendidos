@@ -1,5 +1,5 @@
-import { ShoppingBag } from "phosphor-react"
-import { HeaderContainer } from "../../../styles/pages/Header"
+import { ShoppingBag } from 'phosphor-react'
+import { HeaderContainer } from '../../../styles/pages/Header'
 import logo from '../../../assets/logo-ignite.svg'
 
 export const Header = () => {
@@ -12,7 +12,7 @@ export const Header = () => {
           <span>Meu carrinho</span>
           <p>2 itens</p>
         </div>
-        <ShoppingBag size={30}  />
+        <ShoppingBag size={30} />
       </div>
     </HeaderContainer>
   )

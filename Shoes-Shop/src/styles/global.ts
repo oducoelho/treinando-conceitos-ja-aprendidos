@@ -1,4 +1,4 @@
-import { globalCss } from "@stitches/react";
+import { globalCss } from '@stitches/react'
 
 export const globalStyles = globalCss({
   '*': {
@@ -12,5 +12,5 @@ export const globalStyles = globalCss({
     fontFamily: 'Roboto',
     fontWeight: 400,
     margin: '100px 500px',
-  }
+  },
 })

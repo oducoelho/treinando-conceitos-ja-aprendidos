@@ -1,10 +1,10 @@
-import { styled } from "..";
+import { styled } from '..'
 
 export const HeaderContainer = styled('header', {
   display: 'flex',
   justifyContent: 'space-between',
   color: '$white',
-  
+
   div: {
     display: 'flex',
     gap: '10px',
@@ -13,6 +13,6 @@ export const HeaderContainer = styled('header', {
       p: {
         color: '$gray100',
       },
-    }
-  }
+    },
+  },
 })

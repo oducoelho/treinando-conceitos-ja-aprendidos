@@ -1,4 +1,4 @@
-import { styled } from "..";
+import { styled } from '..'
 
 export const CheckoutContainer = styled('section', {
   width: '100%',
@@ -34,14 +34,14 @@ export const Product = styled('div', {
         backgroundColor: '$transparent',
         fontWeight: 'bold',
       },
-    }
-  }
+    },
+  },
 })
 export const PartOfTheCheckout = styled('div', {
   gap: '100px',
   marginTop: '10px',
   span: {
-    backgroundColor: '$white'
+    backgroundColor: '$white',
   },
 })
 export const Finish = styled('div', {
@@ -49,7 +49,7 @@ export const Finish = styled('div', {
   justifyContent: 'space-between',
   backgroundColor: '$white',
 
-  'button, span, strong':{
+  'button, span, strong': {
     marginTop: '30px',
     backgroundColor: '$white',
   },
@@ -64,7 +64,6 @@ export const Finish = styled('div', {
     cursor: 'pointer',
   },
 
-  
   span: {
     fontSize: 'x-large',
     fontWeight: 'bold',

@@ -1,9 +1,7 @@
-import { styled } from "..";
+import { styled } from '..'
 
-export const HomeContainer = styled('section', {
-  
-})
-export const Product = styled('div', {
+export const HomeContainer = styled('section', {})
+export const Shoes = styled('div', {
   display: 'grid',
   gridTemplateColumns: 'repeat(3, 1fr)',
   gridGap: '10px',
@@ -32,7 +30,7 @@ export const Product = styled('div', {
     span: {
       backgroundColor: 'transparent',
     },
-    
+
     button: {
       width: '80%',
       height: '30px',
@@ -41,6 +39,6 @@ export const Product = styled('div', {
       borderRadius: 8,
       cursor: 'pointer',
       marginBottom: '10px',
-    }
-  }
+    },
+  },
 })
