@@ -9,7 +9,7 @@ export const CheckoutContainer = styled('section', {
     backgroundColor: '$white',
   },
 })
-export const Product = styled('div', {
+export const Products = styled('div', {
   display: 'flex',
   justifyContent: 'space-between',
   paddingBottom: '20px',
@@ -19,6 +19,7 @@ export const Product = styled('div', {
   img: {
     width: '100px',
     height: '100px',
+    borderRadius: 8,
   },
 
   div: {
@@ -42,9 +43,34 @@ export const Product = styled('div', {
   },
 })
 export const PartOfTheCheckout = styled('div', {
+  div: {
+    width: '40px',
+    height: '32px',
+    justifyContent: 'center',
+    alignItems: 'center',
+    gap: '2rem',
+    borderRadius: '8px',
+    fontFamily: 'Roboto',
+    div: {
+      marginBottom: '20px',
+      display: 'flex',
+      flexDirection: 'row',
+      span: {
+        cursor: 'pointer',
+      },
+    },
+  },
   gap: '100px',
   marginTop: '10px',
   span: {
+    svg: {
+      backgroundColor: '$white',
+      TransitionEvent: '0.5s',
+      '&:hover': {
+        cursor: 'pointer',
+        color: 'red',
+      },
+    },
     backgroundColor: '$white',
   },
 })
