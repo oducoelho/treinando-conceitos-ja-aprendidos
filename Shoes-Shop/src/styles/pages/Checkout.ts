@@ -4,6 +4,10 @@ export const CheckoutContainer = styled('section', {
   width: '100%',
   padding: '20px',
   backgroundColor: '$white',
+  h1: {
+    fontWeight: 'bold',
+    backgroundColor: '$white',
+  },
 })
 export const Product = styled('div', {
   display: 'flex',

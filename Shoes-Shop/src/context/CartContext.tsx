@@ -1,6 +1,6 @@
 import { createContext, ReactNode, useState } from 'react'
-import { Product } from '../Pages/Home/index'
 import { produce } from 'immer'
+import { Product } from '../Pages/Home/components/ShoesBanner'
 
 export interface CartItem extends Product {
   quantity: number
@@ -13,7 +13,11 @@ interface CartContextProvaiderProps {
 interface CartContextType {
   cartItems: Product[]
   addToCart: (product: CartItem) => void
-  // removeProduct: (productId: number) => void
+  changeCartItemQuantity: (
+    cartItemId: number,
+    type: 'increase' | 'decrease',
+  ) => void
+  removeCartItem: (productId: number) => void
 }
 
 export const CartContext = createContext<CartContextType>({} as CartContextType)
@@ -37,10 +41,42 @@ export const CartContextProvaider = ({
     setCartItems(newCart)
   }
   console.log(cartItems)
-  // const removeFromCart = () => {}
+
+  const changeCartItemQuantity = (
+    cartItemId: number,
+    type: 'increase' | 'decrease',
+  ) => {
+    const newCart = produce(cartItems, (draft) => {
+      const shoesExistsInCart = cartItems.findIndex(
+        (cartItem) => cartItem.id === cartItemId,
+      )
+      if (shoesExistsInCart >= 0) {
+        const item = draft[shoesExistsInCart]
+        draft[shoesExistsInCart].quantity =
+          type === 'increase' ? item.quantity + 1 : item.quantity - 1
+      }
+    })
+    setCartItems(newCart)
+  }
+
+  const removeCartItem = (productId: number) => {
+    const newCart = produce(cartItems, (draft) => {
+      const shoesExistsInCart = cartItems.findIndex(
+        (cartItem) => cartItem.id === productId,
+      )
+
+      if (shoesExistsInCart >= 0) {
+        draft.splice(shoesExistsInCart, 1)
+      }
+    })
+
+    setCartItems(newCart)
+  }
 
   return (
-    <CartContext.Provider value={{ cartItems, addToCart }}>
+    <CartContext.Provider
+      value={{ cartItems, addToCart, changeCartItemQuantity, removeCartItem }}
+    >
       {children}
     </CartContext.Provider>
   )
