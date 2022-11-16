@@ -12,12 +12,15 @@ interface CartContextProvaiderProps {
 
 interface CartContextType {
   cartItems: Product[]
+  cartItemsTotal: number
+  cartQuantity: number
   addToCart: (product: CartItem) => void
   changeCartItemQuantity: (
     cartItemId: number,
     type: 'increase' | 'decrease',
   ) => void
   removeCartItem: (productId: number) => void
+  cleanCart: () => void
 }
 
 export const CartContext = createContext<CartContextType>({} as CartContextType)
@@ -40,7 +43,8 @@ export const CartContextProvaider = ({
     })
     setCartItems(newCart)
   }
-  console.log(cartItems)
+
+  const cartQuantity = cartItems.length
 
   const changeCartItemQuantity = (
     cartItemId: number,
@@ -59,6 +63,10 @@ export const CartContextProvaider = ({
     setCartItems(newCart)
   }
 
+  const cartItemsTotal = cartItems.reduce((total, cartItem) => {
+    return total + cartItem.price * cartItem.quantity
+  }, 0)
+
   const removeCartItem = (productId: number) => {
     const newCart = produce(cartItems, (draft) => {
       const shoesExistsInCart = cartItems.findIndex(
@@ -73,9 +81,21 @@ export const CartContextProvaider = ({
     setCartItems(newCart)
   }
 
+  const cleanCart = () => {
+    setCartItems([])
+  }
+
   return (
     <CartContext.Provider
-      value={{ cartItems, addToCart, changeCartItemQuantity, removeCartItem }}
+      value={{
+        cartItems,
+        addToCart,
+        changeCartItemQuantity,
+        removeCartItem,
+        cartItemsTotal,
+        cleanCart,
+        cartQuantity,
+      }}
     >
       {children}
     </CartContext.Provider>

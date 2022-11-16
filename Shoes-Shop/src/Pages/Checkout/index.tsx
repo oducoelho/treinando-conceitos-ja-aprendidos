@@ -1,42 +1,28 @@
-import {
-  CheckoutContainer,
-  Finish,
-  PartOfTheCheckout,
-  Product,
-} from '../../styles/pages/Checkout'
-import { MinusCircle, PlusCircle, Trash } from 'phosphor-react'
 import { useCart } from '../../hook/useCart'
+import { CheckoutContainer, Finish } from '../../styles/pages/Checkout'
+import { formatMoney } from '../../utils/formatMoney'
+import { ShoesContainer } from './components/ShoesContainer'
+
 export const Checkout = () => {
-  const { cartItems, removeCartItem } = useCart()
+  const { cartItems, cartItemsTotal, cleanCart } = useCart()
+
+  const formatPrice = formatMoney(cartItemsTotal)
+
+  const handleFinish = () => {
+    alert('Parabens pelas as suas novas aquisisoes!! volte sempre')
+    cleanCart()
+  }
   return (
     <CheckoutContainer>
-      {cartItems.length <= 0 && <h1>Parece que seu carrinho está vazio :( </h1>}
-      {cartItems.map((products) => (
-        <Product key={products.id}>
-          <div>
-            <img src={products.image} alt="" />
-            <div>
-              <span>{products.title}</span>
-              <p>{products.price}</p>
-            </div>
-          </div>
-
-          <PartOfTheCheckout>
-            <div>
-              {' '}
-              {/* <MinusCircle /> */} - 2 +{/* <PlusCircle  /> */}{' '}
-            </div>
-            <span>total</span>
-
-            <Trash onClick={() => removeCartItem(products.id)} />
-          </PartOfTheCheckout>
-        </Product>
+      {cartItems.length <= 0 && <h1>O seu carrinho está vazio</h1>}
+      {cartItems.map((item) => (
+        <ShoesContainer key={item.id} product={item} />
       ))}
-
       <Finish>
-        <button>FINALIZAR PEDIDO</button>
+        <button onClick={handleFinish}>FINALIZAR PEDIDO</button>
         <span>
-          <strong>TOTAL</strong>R$ 500,00
+          <strong>TOTAL</strong>
+          {formatPrice}
         </span>
       </Finish>
     </CheckoutContainer>

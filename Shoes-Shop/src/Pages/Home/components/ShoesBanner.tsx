@@ -1,4 +1,5 @@
 import { useCart } from '../../../hook/useCart'
+import { formatMoney } from '../../../utils/formatMoney'
 
 export interface Product {
   id: number
@@ -19,10 +20,11 @@ export const ShoesBanner = ({ product }: ProductProps) => {
     }
     addToCart(shoesToAdd)
   }
+  const formatPrice = formatMoney(product.price)
   return (
     <div key={product.id}>
       <img src={product.image} alt="" />
-      <span>{product.price}</span>
+      <span>{formatPrice}</span>
       <h2>{product.title}</h2>
       <button onClick={handleAddToCart}>ADICIONAR AO CARRINHO</button>
     </div>
