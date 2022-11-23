@@ -1,58 +1,89 @@
-import { PlusCircle } from "phosphor-react"
 import { Header } from "../styles/pages/Home"
-import Logo from '../assets/logo.svg'
 import * as Dialog from '@radix-ui/react-dialog';
 import { Cross2Icon } from '@radix-ui/react-icons';
-import './styles.css';  
-//import { useModal } from "../hook/useModal"
+import Logo from '../assets/logo.svg'
+import { PlusCircle } from "phosphor-react";
+import { FormEvent, useState } from "react";
+import { 
+  DialogOverlay, 
+  DialogContent, 
+  DialogTitle, 
+  Fieldset,
+  Input, 
+  Button, 
+  IconButton 
+} from "../styles/pages/FirtstModal"
+
 
 export const Home = () => {
-  //const { AddPlateModal } = useModal()
+  const [newPlate, SetNewPlate] = useState([])
 
-  <Dialog.Root>
-    <Dialog.Trigger asChild>
-      <button className="Button violet">
-        Edit profile
-      </button>
-    </Dialog.Trigger>
-    <Dialog.Portal>
-      <Dialog.Overlay className="DialogOverlay" />
-      <Dialog.Content className="DialogContent">
-        <Dialog.Title className="DialogTitle">Edit profile</Dialog.Title>
-        <Dialog.Description className="DialogDescription">
-          Make changes to your profile here. Click save when you're done.
-        </Dialog.Description>
-        <fieldset className="Fieldset">
-          <label className="Label" htmlFor="name">
-            Name
-          </label>
-          <input className="Input" id="name" defaultValue="Pedro Duarte" />
-        </fieldset>
-        <fieldset className="Fieldset">
-          <label className="Label" htmlFor="username">
-            Username
-          </label>
-          <input className="Input" id="username" defaultValue="@peduarte" />
-        </fieldset>
-        <div style={{ display: 'flex', marginTop: 25, justifyContent: 'flex-end' }}>
-          <Dialog.Close asChild>
-            <button className="Button green">Save changes</button>
-          </Dialog.Close>
-        </div>
-        <Dialog.Close asChild>
-          <button className="IconButton" aria-label="Close">
-            <Cross2Icon />
-          </button>
-        </Dialog.Close>
-      </Dialog.Content>
-    </Dialog.Portal>
-  </Dialog.Root>
-    /*<Header>
+  const HandleSubmit = (event: FormEvent) => {
+    event.preventDefault()
+
+    const formData = new FormData(event.target as HTMLFormElement)
+    const data = Object.fromEntries(formData)
+    SetNewPlate(data)
+
+    console.log(newPlate);
+  }
+  return (
+    <Header>
       <div>
         <img src={Logo} alt="" />
-        <button>Novo Prato <PlusCircle /></button>
+
+        <Dialog.Root>
+          <Dialog.Trigger asChild>
+            <Button>Novo Prato <PlusCircle /></Button>
+          </Dialog.Trigger>
+          <Dialog.Portal>
+            <DialogOverlay />
+            <DialogContent>
+              <DialogTitle>Adicionar um novo prato</DialogTitle>
+              <form onSubmit={HandleSubmit}>
+                <Fieldset>
+                  <Input 
+                    id="image" 
+                    placeholder="Cole o link aqui"
+                    name='image'
+                    />
+                </Fieldset>
+                <Fieldset>
+                  <Input 
+                    id="name" 
+                    placeholder="Ex: Moda italiana"
+                    name='name' 
+                    />
+                </Fieldset>
+                <Fieldset>
+                  <Input 
+                    id="price"
+                    placeholder="Ex: 19.90" 
+                    name='price' 
+                    />
+                </Fieldset>
+                <Fieldset>
+                  <Input 
+                    id="description" 
+                    placeholder="Descrição" 
+                    name='description'
+                    />
+                </Fieldset>
+
+                    <Button variant="green">Adicionar prato</Button>
+                  <Dialog.Close asChild>
+                  </Dialog.Close>
+
+              </form>
+              <Dialog.Close asChild>
+                <IconButton aria-label="Close">
+                  <Cross2Icon />
+                </IconButton>
+              </Dialog.Close>
+            </DialogContent>
+          </Dialog.Portal>
+        </Dialog.Root>
       </div>
     </Header>
-     */
-
+  )
 }
