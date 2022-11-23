@@ -1,20 +1,23 @@
-import { PlusCircle } from "phosphor-react"
-import { Header } from "../styles/pages/Home"
-import Logo from '../assets/logo.svg'
+import { createContext, ReactNode } from "react";
 import * as Dialog from '@radix-ui/react-dialog';
 import { Cross2Icon } from '@radix-ui/react-icons';
-import './styles.css';  
-//import { useModal } from "../hook/useModal"
 
-export const Home = () => {
-  //const { AddPlateModal } = useModal()
+interface ModalContextProviderProps {
+  children: ReactNode,
+}
 
-  <Dialog.Root>
-    <Dialog.Trigger asChild>
-      <button className="Button violet">
-        Edit profile
-      </button>
-    </Dialog.Trigger>
+interface ModalContexType {
+  AddPlateModal: () => void;
+}
+
+export const  ModalContext = createContext<ModalContexType>({} as ModalContexType)
+
+export const ModalContextProvider = ({
+  children,
+}: ModalContextProviderProps) => {
+
+  const AddPlateModal = () => {
+    
     <Dialog.Portal>
       <Dialog.Overlay className="DialogOverlay" />
       <Dialog.Content className="DialogContent">
@@ -46,13 +49,13 @@ export const Home = () => {
         </Dialog.Close>
       </Dialog.Content>
     </Dialog.Portal>
-  </Dialog.Root>
-    /*<Header>
-      <div>
-        <img src={Logo} alt="" />
-        <button>Novo Prato <PlusCircle /></button>
-      </div>
-    </Header>
-     */
+  console.log("open")
+  }
 
+
+  return (
+    <ModalContext.Provider value={ {AddPlateModal} }>
+      {children}
+    </ModalContext.Provider>
+  )
 }
