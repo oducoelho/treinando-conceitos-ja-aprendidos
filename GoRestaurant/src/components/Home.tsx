@@ -2,7 +2,7 @@ import { Header } from "../styles/pages/Home"
 import * as Dialog from '@radix-ui/react-dialog';
 import { Cross2Icon } from '@radix-ui/react-icons';
 import Logo from '../assets/logo.svg'
-import { LinkSimpleHorizontal, PlusCircle } from "phosphor-react";
+import { PlusCircle } from "phosphor-react";
 import { FormEvent, useState } from "react";
 import { 
   DialogOverlay, 
@@ -13,27 +13,28 @@ import {
   Button, 
   IconButton 
 } from "../styles/pages/FirtstModal"
+import { useRestaurant } from "../hooks/useRestaurant";
 
-interface ItensProps {
+/*interface ItensProps {
   image: string;
   name: string;
   price: string;
   description: string;
-}
+}*/
 
 export const Home = () => {
-  const [newPlate, setNewPlate] = useState<ItensProps[]>([])
+  const [newPlate, setNewPlate] = useState([])
+
+  const { addPlate } = useRestaurant()
 
   const HandleSubmit = (event: FormEvent) => {
     event.preventDefault()
 
     const formData = new FormData(event.target as HTMLFormElement)
     const data = Object.fromEntries(formData)
-
-    setNewPlate([
-      ...newPlate, 
-       data
-    ])
+    
+    addPlate(data)
+    
     console.log(newPlate)
   }
   return (
