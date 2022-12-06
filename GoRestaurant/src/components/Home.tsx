@@ -3,39 +3,54 @@ import * as Dialog from '@radix-ui/react-dialog';
 import { Cross2Icon } from '@radix-ui/react-icons';
 import Logo from '../assets/logo.svg'
 import { PlusCircle } from "phosphor-react";
-import { FormEvent, useState } from "react";
-import { 
-  DialogOverlay, 
-  DialogContent, 
-  DialogTitle, 
+import { useForm } from 'react-hook-form'
+import * as z from 'zod'
+import { zodResolver } from "@hookform/resolvers/zod";
+import {
+  DialogOverlay,
+  DialogContent,
+  DialogTitle,
   Fieldset,
-  Input, 
-  Button, 
-  IconButton 
+  Input,
+  Button,
+  IconButton
 } from "../styles/pages/FirtstModal"
-import { useRestaurant } from "../hooks/useRestaurant";
+import { useContextSelector } from 'use-context-selector'
+import { RestaurantContext } from "../context/RestaurantContext";
 
-/*interface ItensProps {
-  image: string;
-  name: string;
-  price: string;
-  description: string;
-}*/
-
+const newPlateFormSchema = z.object({
+  description: z.string(),
+  price: z.number(),
+  link: z.string(),
+  title: z.string(),
+})
+type NewPlateFormInputs = z.infer<typeof newPlateFormSchema>
 export const Home = () => {
-  const [newPlate, setNewPlate] = useState([])
+  const createPlate = useContextSelector(
+    RestaurantContext,
+    (context) => {
+      return context.createPlate
+    },
+  )
 
-  const { addPlate } = useRestaurant()
+  const {
+    register,
+    handleSubmit,
+    reset,
+  } = useForm<NewPlateFormInputs>({
+    resolver: zodResolver(newPlateFormSchema),
+  })
 
-  const HandleSubmit = (event: FormEvent) => {
-    event.preventDefault()
+  const handleAddNewPlate = async (data: NewPlateFormInputs) => {
+    const { description, price, link, title } = data
 
-    const formData = new FormData(event.target as HTMLFormElement)
-    const data = Object.fromEntries(formData)
-    
-    addPlate(data)
-    
-    console.log(newPlate)
+    await createPlate({
+      description,
+      price,
+      link,
+      title,
+    })
+    reset()
   }
   return (
     <Header>
@@ -50,39 +65,43 @@ export const Home = () => {
             <DialogOverlay />
             <DialogContent>
               <DialogTitle>Adicionar um novo prato</DialogTitle>
-              <form onSubmit={HandleSubmit}>
+              <form onSubmit={handleSubmit(handleAddNewPlate)}>
                 <Fieldset>
-                  <Input 
-                    id="image" 
+                  <Input
+                    type="text"
                     placeholder="Cole o link aqui"
-                    name='image'
-                    />
+                    required
+                    {...register('link')}
+                  />
                 </Fieldset>
                 <Fieldset>
-                  <Input 
-                    id="name" 
+                  <Input
+                    type="text"
                     placeholder="Ex: Moda italiana"
-                    name='name' 
-                    />
+                    required
+                    {...register('title')}
+                  />
                 </Fieldset>
                 <Fieldset>
-                  <Input 
-                    id="price"
-                    placeholder="Ex: 19.90" 
-                    name='price' 
-                    />
+                  <Input
+                    type="text"
+                    placeholder="Ex: 19.90"
+                    required
+                    {...register('price')}
+                  />
                 </Fieldset>
                 <Fieldset>
-                  <Input 
-                    id="description" 
-                    placeholder="Descrição" 
-                    name='description'
-                    />
+                  <Input
+                    type="text"
+                    placeholder="Descrição"
+                    required
+                    {...register('description')}
+                  />
                 </Fieldset>
 
-                    <Button variant="green">Adicionar prato</Button>
-                  <Dialog.Close asChild>
-                  </Dialog.Close>
+                <Button type="submit" variant="green">Adicionar prato</Button>
+                <Dialog.Close asChild>
+                </Dialog.Close>
 
               </form>
               <Dialog.Close asChild>

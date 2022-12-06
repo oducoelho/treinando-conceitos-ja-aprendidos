@@ -1,15 +1,22 @@
-import { createContext, ReactNode, useState } from "react"
+import { createContext, ReactNode, useCallback, useState } from "react"
+import { api } from "../lib/axios"
 
-interface PlatesItems {
-  id: string;
-  title: string;
-  subTitle: string;
-  price: number;
+interface Plates {
+  id: number
+  description: string
+  title: string
+  price: number
+  link: string
+  }
+
+interface CreatePlateInput {
+  description: string
+  price: number
+  link: string
+  title: string
 }
-
 interface RestaurantContextType {
-  newPlate: PlatesItems[]
-  addPlate: (plate: PlatesItems) => void
+  createPlate: (data: CreatePlateInput) => Promise<void>
 }
 
 interface RestaurantContextProviderProps {
@@ -19,18 +26,25 @@ interface RestaurantContextProviderProps {
 export const RestaurantContext = createContext({} as RestaurantContextType)
 
 export const RestaurantContextProvider = ({ children }: RestaurantContextProviderProps) => {
-  const [newPlate, setNewPlate] = useState([])
+  const [newPlate, setNewPlate] = useState<Plates[]>([])
 
-  const addPlate = (data) => {
-    setNewPlate([
-      ... newPlate, 
-       data
-    ])
-  }
-  console.log(newPlate)
+  const createPlate = useCallback(
+    async (data: CreatePlateInput) => {
+      const { description, price, link, title } = data
+
+      const response = await api.post('transactions', {
+        description,
+        price,
+        link,
+        title
+      })
+      setNewPlate((state) => [response.data, ...state])
+    },
+    [],
+  )
 
   return (
-    <RestaurantContext.Provider value={{ addPlate, newPlate }}>
+    <RestaurantContext.Provider value={{ createPlate }}>
       {children}
     </RestaurantContext.Provider>
   )
