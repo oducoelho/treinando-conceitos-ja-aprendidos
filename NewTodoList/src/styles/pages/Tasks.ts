@@ -40,4 +40,8 @@ export const TextStyled = styled('div', {
 
 export const OnDelate = styled('div', {
   cursor: 'pointer',
+  img: {
+    backgroundColor: '$gray500',
+    width: '15px'
+  }
 })

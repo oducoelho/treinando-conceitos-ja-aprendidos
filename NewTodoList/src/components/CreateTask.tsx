@@ -10,9 +10,13 @@ export const CreateTask = ({ onAddTask }: TasksProps) => {
   
   const handleSubmit = (event: FormEvent) => {
     event.preventDefault();
-
-    onAddTask(title)
-    setTitle("")
+    
+    if (title.length === 0) {
+      alert("Porfavor, insira um texto antes de proseguir")
+    } else {
+      onAddTask(title)
+      setTitle("")
+    }
   }
 
   const onChangeTitle = (event: ChangeEvent<HTMLInputElement>) => {

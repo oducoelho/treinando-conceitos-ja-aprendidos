@@ -29,5 +29,10 @@ export const FormContainer = styled('form', {
     marginLeft: '10px',
 
     cursor: 'pointer',
+
+    '&:hover': {
+      transition: 'all 100ms',
+      backgroundColor: '$blue',
+    }
   }
 })
