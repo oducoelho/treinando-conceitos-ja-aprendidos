@@ -5,11 +5,11 @@ export const FormContainer = styled('form', {
   flexDirection: 'row',
   justifyContent: 'center',
   alignItems: 'center',
-  marginTop: '-20px',
+  margin: '-20px 2% 0px 2%',
   backgroundColor: 'transparent',
   input: {
     height: '45px',
-    width: '30%',
+    width: '638px',
 
     backgroundColor: '$gray500',
     borderRadius: 8,
@@ -20,13 +20,13 @@ export const FormContainer = styled('form', {
   },
   button: {
     height: '45px',
-    width: '5%',
+    width: '90px',
 
     border: 'none',
     backgroundColor: '$blueDark',
     color: 'white',
     borderRadius: 8,
-    marginLeft: '10px',
+    marginLeft: '8px',
 
     cursor: 'pointer',
 

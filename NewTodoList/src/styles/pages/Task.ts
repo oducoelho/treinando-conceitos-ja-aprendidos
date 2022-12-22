@@ -1,7 +1,12 @@
 import { styled } from "..";
 
 export const TasksContainer = styled('div', {
-  margin: '30px 620px',
+  margin: '20px 30.9%',
+
+  '@media (max-width: 425px)': {
+    margin: '20px auto',
+    padding: '0px 10px'
+  },
 })
 
 export const TasksStatus = styled('div', {
